@@ -16,14 +16,15 @@
     overflow: hidden;
   }
 
-  .box {
+    .box {
     width: 100%;
-    height: 100%;
-    position: relative;
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
   }
 
   canvas {
@@ -35,9 +36,19 @@
   #pinkboard {
     position: relative;
     margin: auto;
-    width: min(80vw, 500px);
-    height: min(80vw, 500px);
+    height: 500px;
+    width: 500px;
     animation: animate 1.3s infinite;
+  }
+
+  #pinkboard:before, #pinkboard:after {
+    content: '';
+    position: absolute;
+    background: #FF5CA4;
+    width: 100px;
+    height: 160px;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
   }
 
   @keyframes animate {
@@ -49,7 +60,7 @@
 
   .text-love {
     position: absolute;
-    top: 45%;
+    top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
     color: #FF8BC2;
@@ -62,12 +73,12 @@
 
   .text-name {
     position: absolute;
-    bottom: 10%;
+    bottom: 1%;
     left: 50%;
     transform: translateX(-50%);
     color: #FFD6E8;
     font-family: 'Comic Neue', cursive, sans-serif;
-    font-size: clamp(20px, 5vw, 22px);
+    font-size: clamp(20px, 5vw, 28px);
     text-shadow: 0 0 15px #FF5CA4, 0 0 30px #FF5CA4;
     animation: glow 3s ease-in-out infinite;
     text-align: center;
@@ -81,23 +92,23 @@
   /* 🎵 Vùng chữ và nút nhạc */
   #music-control {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
+    bottom: 12px;
+    right: 12px;
     display: flex;
     align-items: center;
-    gap: 10px;
-    background: rgba(0, 0, 0, 0.3);
-    padding: 10px 16px;
-    border-radius: 30px;
-    box-shadow: 0 0 15px rgba(255, 92, 164, 0.6);
-    backdrop-filter: blur(4px);
+    gap: 6px;
+    background: rgba(0, 0, 0, 0.25);
+    padding: 6px 10px;
+    border-radius: 20px;
+    box-shadow: 0 0 8px rgba(255, 92, 164, 0.5);
+    backdrop-filter: blur(3px);
   }
 
   #text-click {
     color: #FFD6E8;
     font-family: 'Comic Neue', cursive, sans-serif;
-    font-size: clamp(14px, 3.5vw, 18px);
-    text-shadow: 0 0 10px #FF5CA4;
+    font-size: clamp(10px, 3vw, 14px);
+    text-shadow: 0 0 6px #FF5CA4;
     white-space: nowrap;
   }
 
@@ -106,16 +117,16 @@
     color: white;
     border: none;
     border-radius: 50%;
-    font-size: clamp(18px, 5vw, 22px);
-    width: 45px;
-    height: 50px;
+    font-size: clamp(14px, 4vw, 18px);
+    width: 36px;
+    height: 38px;
     cursor: pointer;
-    box-shadow: 0 0 15px #FF5CA4;
+    box-shadow: 0 0 10px #FF5CA4;
     transition: transform 0.3s, background 0.3s;
   }
 
   #music-toggle:hover {
-    transform: scale(1.15);
+    transform: scale(1.1);
     background: #FF78B7;
   }
   </style>
