@@ -73,17 +73,6 @@
     60% { transform: scale(1.2); }
     100% { transform: scale(1); }
   }
-  .text-click {
-    position: absolute;
-    top: 110%;
-    left: 85%;
-    transform: translate(-50%, -50%);
-    color: #FF8BC2;
-    font-family: 'Comic Neue', cursive, sans-serif;
-    font-size: 11px;
-    text-shadow: 0 0 20px #FF5CA4, 0 0 40px #FF5CA4;
-    animation: glow 2s ease-in-out infinite;
-  }
 
   .text-love {
     position: absolute;
@@ -114,33 +103,53 @@
     50% { text-shadow: 0 0 30px #FF9FD1, 0 0 60px #FF9FD1; }
   }
 
-  /* 🎵 Nút bật/tắt nhạc */
-  #music-toggle {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: rgba(255, 92, 164, 0.8);
-    color: white;
-    border: none;
-    border-radius: 50%;
-    font-size: 20px;
-    width: 50px;
-    height: 50px;
-    cursor: pointer;
-    box-shadow: 0 0 15px #FF5CA4;
-    transition: transform 0.3s, background 0.3s;
-  }
-  #music-toggle:hover {
-    transform: scale(1.15);
-    background: #FF78B7;
-  }
+/* 🎵 Vùng chứa chữ và nút nhạc */
+#music-control {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px; /* khoảng cách giữa chữ và nút */
+  background: rgba(0, 0, 0, 0.3);
+  padding: 8px 12px;
+  border-radius: 30px;
+  box-shadow: 0 0 15px rgba(255, 92, 164, 0.6);
+  backdrop-filter: blur(4px);
+}
+
+#text-click {
+  color: #FFD6E8;
+  font-family: 'Comic Neue', cursive, sans-serif;
+  font-size: 18px;
+  text-shadow: 0 0 10px #FF5CA4;
+  white-space: nowrap;
+}
+
+#music-toggle {
+  background: rgba(255, 92, 164, 0.8);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 20px;
+  width: 45px;
+  height: 45px;
+  cursor: pointer;
+  box-shadow: 0 0 15px #FF5CA4;
+  transition: transform 0.3s, background 0.3s;
+}
+
+#music-toggle:hover {
+  transform: scale(1.15);
+  background: #FF78B7;
+}
+
   </style>
  </HEAD>
  
  <BODY>
    <div class="box">
       <canvas id="pinkboard"></canvas>
-      <div class="text-click ">Hãy ấn vào màn hình sẽ có điều bất ngờ 😊</div>
       <div class="text-love">Anh thích em 💖</div>
       <div class="text-name">Cô gái "Ngoan" xinh Iu</div>
    </div>
@@ -151,7 +160,11 @@
    </audio>
 
    <!-- Nút bật/tắt nhạc -->
-   <button id="music-toggle">🎵</button>
+<div id="music-control">
+  <span id="text-click">Click để bật nhạc</span>
+  <button id="music-toggle">🎵</button>
+</div>
+
 
   <script>
   const audio = document.getElementById("bg-music");
