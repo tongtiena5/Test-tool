@@ -320,8 +320,8 @@ var ParticlePool = (function() {
   }, 10);
 })(document.getElementById('pinkboard'));
   </script>
- </BODY>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!DOCTYPE HTML>
 <HTML>
  <HEAD>
   <TITLE>Heart</TITLE>
@@ -397,7 +397,6 @@ var ParticlePool = (function() {
     100% { transform: scale(1); }
   }
 
-  /* 💖 Chữ ở giữa tim */
   .text-love {
     position: absolute;
     top: 45%;
@@ -410,7 +409,6 @@ var ParticlePool = (function() {
     animation: glow 2s ease-in-out infinite;
   }
 
-  /* 💕 Chữ phía dưới tim */
   .text-name {
     position: absolute;
     top: 95%;
@@ -437,16 +435,21 @@ var ParticlePool = (function() {
       <div class="text-name">Cô gái rất "Ngoan"</div>
    </div>
 
+   <!-- 🎵 Nhạc nền tự động phát -->
+   <audio id="bg-music" autoplay loop hidden>
+     <source src="Không Thời Gian.mp3" type="audio/mpeg">
+   </audio>
+
   <script>
-  /* --- Giữ nguyên toàn bộ phần script tim động --- */
+  // Khi trình duyệt chặn autoplay, phát nhạc khi người dùng click lần đầu
+  document.addEventListener("click", function() {
+    const audio = document.getElementById("bg-music");
+    if (audio.paused) audio.play();
+  });
+
+  /* --- Giữ nguyên phần tim động --- */
   var settings = {
-    particles: {
-      length:   2000,
-      duration:   2,
-      velocity: 100,
-      effect: -1.3,
-      size:      13,
-    },
+    particles: { length: 2000, duration: 2, velocity: 100, effect: -1.3, size: 13 },
   };
   (function(){var b=0;var c=["ms","moz","webkit","o"];for(var a=0;a<c.length&&!window.requestAnimationFrame;++a){window.requestAnimationFrame=window[c[a]+"RequestAnimationFrame"];window.cancelAnimationFrame=window[c[a]+"CancelAnimationFrame"]||window[c[a]+"CancelRequestAnimationFrame"]}if(!window.requestAnimationFrame){window.requestAnimationFrame=function(h,e){var d=new Date().getTime();var f=Math.max(0,16-(d-b));var g=window.setTimeout(function(){h(d+f)},f);b=d+f;return g}}if(!window.cancelAnimationFrame){window.cancelAnimationFrame=function(d){clearTimeout(d)}}}());
   var Point=function(){function t(i,h){this.x=(typeof i!=='undefined')?i:0;this.y=(typeof h!=='undefined')?h:0;}t.prototype.clone=function(){return new t(this.x,this.y);};t.prototype.length=function(h){if(typeof h=='undefined'){return Math.sqrt(this.x*this.x+this.y*this.y);}this.normalize();this.x*=h;this.y*=h;return this;};t.prototype.normalize=function(){var h=this.length();this.x/=h;this.y/=h;return this;};return t;}();
