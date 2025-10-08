@@ -73,6 +73,17 @@
     60% { transform: scale(1.2); }
     100% { transform: scale(1); }
   }
+  .text-click {
+    position: absolute;
+    top: 110%;
+    left: 85%;
+    transform: translate(-50%, -50%);
+    color: #FF8BC2;
+    font-family: 'Comic Neue', cursive, sans-serif;
+    font-size: 11px;
+    text-shadow: 0 0 20px #FF5CA4, 0 0 40px #FF5CA4;
+    animation: glow 2s ease-in-out infinite;
+  }
 
   .text-love {
     position: absolute;
@@ -129,6 +140,7 @@
  <BODY>
    <div class="box">
       <canvas id="pinkboard"></canvas>
+      <div class="text-click ">Hãy ấn vào màn hình sẽ có điều bất ngờ 😊</div>
       <div class="text-love">Anh thích em 💖</div>
       <div class="text-name">Cô gái "Ngoan" xinh Iu</div>
    </div>
