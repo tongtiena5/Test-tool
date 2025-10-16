@@ -1,13 +1,14 @@
-<!DOCTYPE HTML>
-<HTML lang="vi">
-<HEAD>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+ <HEAD>
+  <TITLE> Heart </TITLE>
   <META NAME="Generator" CONTENT="EditPlus">
   <META NAME="Author" CONTENT="">
   <META NAME="Keywords" CONTENT="">
   <META NAME="Description" CONTENT="">
-  <TITLE>Happy 20/10 💖</TITLE>
-
- <style>
+ 
+    
+  <style>
   html, body {
   height: 100%;
   padding: 0;
@@ -409,9 +410,10 @@ var ParticlePool = (function() {
     animation: glow 2s ease-in-out infinite;
   }
 
+  /* 💕 Chữ phía dưới tim */
   .text-name {
     position: absolute;
-    bottom: 1%;
+    top: 95%;
     left: 50%;
     transform: translateX(-50%);
     color: #FFD6E8;
@@ -419,23 +421,9 @@ var ParticlePool = (function() {
     font-size: 28px;
     text-shadow: 0 0 15px #FF5CA4, 0 0 30px #FF5CA4;
     animation: glow 3s ease-in-out infinite;
-    text-align: center;
   }
 
-  .text-wish {
-    position: absolute;
-    top: 110%;
-    left: 50%;
-    transform: translateX(-50%);
-    color: #FFE1EF;
-    font-family: 'Comic Neue', cursive, sans-serif;
-    font-size: 22px;
-    animation: fadeIn 6s ease-in-out forwards 2s;
-    text-shadow: 0 0 10px #FF5CA4, 0 0 20px #FF5CA4;
-    text-align: center;
-  }
-
-  /* 🎵 Vùng chữ và nút nhạc */
+/* 🎵 Vùng chữ và nút nhạc */
   #music-control {
     position: fixed;
     bottom: 12px;
@@ -476,25 +464,21 @@ var ParticlePool = (function() {
     background: #FF78B7;
   }
   </style>
-</HEAD>
-
-<BODY>
+ </HEAD>
+ 
+ <BODY>
   <div class="box">
     <canvas id="pinkboard"></canvas>
-    <div class="text-love">Lady DR14 💖</div>
-    <div class="text-wish">
-      Chúc những cô gái dịu dàng nhất thế gian<br>
-      Luôn xinh đẹp, rạng rỡ và hạnh phúc mỗi ngày.<br>
-      Mong mọi người được yêu thương như bông hoa nhỏ<br>
-      Và nụ cười mãi giữ trên môi, yêu mọi người rất nhiều 🌸
-    </div>
+    <div class="text-love">Anh thích em 💖</div>
+    <div class="text-name">Cô gái "Ngoan" xinh Iu</div>
   </div>
 
   <!-- 🎵 Nhạc nền -->
   <audio id="bg-music" autoplay loop hidden>
-    <source src="dung-lam-trai-tim-anh-dau-son-tung.mp3" type="audio/mpeg">
+    <source src="Không Thời Gian.mp3" type="audio/mpeg">
   </audio>
 
+  <!-- 🎵 Nút bật/tắt nhạc -->
   <div id="music-control">
     <span id="text-click">Click để bật nhạc</span>
     <button id="music-toggle">🎵</button>
@@ -505,6 +489,7 @@ var ParticlePool = (function() {
   const btn = document.getElementById("music-toggle");
   const textClick = document.getElementById("text-click");
 
+  // Nếu bị chặn autoplay => phát khi người dùng chạm lần đầu
   document.addEventListener("click", () => {
     if (audio.paused) {
       audio.play();
@@ -512,6 +497,7 @@ var ParticlePool = (function() {
     }
   }, { once: true });
 
+  // Nút bật/tắt nhạc
   btn.addEventListener("click", () => {
     if (audio.paused) {
       audio.play();
@@ -523,14 +509,11 @@ var ParticlePool = (function() {
       textClick.textContent = "Nhạc tạm dừng";
     }
   });
-
-  /* --- Hiệu ứng trái tim động --- */
-  var settings = { particles: { length: 2000, duration: 2, velocity: 100, effect: -1.3, size: 13 } };
   (function(){var b=0;var c=["ms","moz","webkit","o"];for(var a=0;a<c.length&&!window.requestAnimationFrame;++a){window.requestAnimationFrame=window[c[a]+"RequestAnimationFrame"];window.cancelAnimationFrame=window[c[a]+"CancelAnimationFrame"]||window[c[a]+"CancelRequestAnimationFrame"]}if(!window.requestAnimationFrame){window.requestAnimationFrame=function(h,e){var d=new Date().getTime();var f=Math.max(0,16-(d-b));var g=window.setTimeout(function(){h(d+f)},f);b=d+f;return g}}if(!window.cancelAnimationFrame){window.cancelAnimationFrame=function(d){clearTimeout(d)}}}());
   var Point=function(){function t(i,h){this.x=(typeof i!=='undefined')?i:0;this.y=(typeof h!=='undefined')?h:0;}t.prototype.clone=function(){return new t(this.x,this.y);};t.prototype.length=function(h){if(typeof h=='undefined'){return Math.sqrt(this.x*this.x+this.y*this.y);}this.normalize();this.x*=h;this.y*=h;return this;};t.prototype.normalize=function(){var h=this.length();this.x/=h;this.y/=h;return this;};return t;}();
   var Particle=function(){function t(){this.position=new Point();this.velocity=new Point();this.acceleration=new Point();this.age=0;}t.prototype.initialize=function(i,h,j,k){this.position.x=i;this.position.y=h;this.velocity.x=j;this.velocity.y=k;this.acceleration.x=j*settings.particles.effect;this.acceleration.y=k*settings.particles.effect;this.age=0;};t.prototype.update=function(i){this.position.x+=this.velocity.x*i;this.position.y+=this.velocity.y*i;this.velocity.x+=this.acceleration.x*i;this.velocity.y+=this.acceleration.y*i;this.age+=i;};t.prototype.draw=function(k,i){function h(l){return(--l)*l*l+1;}var j=i.width*h(this.age/settings.particles.duration);k.globalAlpha=1-this.age/settings.particles.duration;k.drawImage(i,this.position.x-j/2,this.position.y-j/2,j,j);};return t;}();
   var ParticlePool=function(){var j,e=0,g=0,i=settings.particles.duration;function h(k){j=new Array(k);for(var l=0;l<j.length;l++){j[l]=new Particle();}}h.prototype.add=function(l,m,o,n){j[g].initialize(l,m,o,n);g++;if(g==j.length){g=0;}if(e==g){e++;}if(e==j.length){e=0;}};h.prototype.update=function(k){var l;if(e<g){for(l=e;l<g;l++){j[l].update(k);}}if(g<e){for(l=e;l<j.length;l++){j[l].update(k);}for(l=0;l<g;l++){j[l].update(k);}}while(j[e].age>=i&&e!=g){e++;if(e==j.length){e=0;}}};h.prototype.draw=function(k,l){if(e<g){for(var m=e;m<g;m++){j[m].draw(k,l);}}if(g<e){for(var m=e;m<j.length;m++){j[m].draw(k,l);}for(var m=0;m<g;m++){j[m].draw(k,l);}}};return h;}();
   (function(canvas){var context=canvas.getContext('2d'),particles=new ParticlePool(settings.particles.length),particleRate=settings.particles.length/settings.particles.duration,time;function pointOnHeart(t){return new Point(160*Math.pow(Math.sin(t),3),130*Math.cos(t)-50*Math.cos(2*t)-20*Math.cos(3*t)-10*Math.cos(4*t)+25);}var image=(function(){var canvas=document.createElement('canvas'),context=canvas.getContext('2d');canvas.width=settings.particles.size;canvas.height=settings.particles.size;function to(t){var point=pointOnHeart(t);point.x=settings.particles.size/2+point.x*settings.particles.size/350;point.y=settings.particles.size/2-point.y*settings.particles.size/350;return point;}context.beginPath();var t=-Math.PI;var point=to(t);context.moveTo(point.x,point.y);while(t<Math.PI){t+=0.01;point=to(t);context.lineTo(point.x,point.y);}context.closePath();context.fillStyle='#FF5CA4';context.fill();var image=new Image();image.src=canvas.toDataURL();return image;})();function render(){requestAnimationFrame(render);var newTime=new Date().getTime()/1000,deltaTime=newTime-(time||newTime);time=newTime;context.clearRect(0,0,canvas.width,canvas.height);var amount=particleRate*deltaTime;for(var i=0;i<amount;i++){var pos=pointOnHeart(Math.PI-2*Math.PI*Math.random());var dir=pos.clone().length(settings.particles.velocity);particles.add(canvas.width/2+pos.x,canvas.height/2-pos.y,dir.x,-dir.y);}particles.update(deltaTime);particles.draw(context,image);}function onResize(){canvas.width=canvas.clientWidth;canvas.height=canvas.clientHeight;}window.onresize=onResize;setTimeout(function(){onResize();render();},10);})(document.getElementById('pinkboard'));
   </script>
-</BODY>
+ </BODY>
 </HTML>
