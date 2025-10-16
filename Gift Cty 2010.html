@@ -55,7 +55,7 @@
     transform: translate(-50%, -50%);
     color: #FF8BC2;
     font-family: 'Comic Neue', cursive, sans-serif;
-    font-size: 30px;
+    font-size: 28px;
     text-shadow: 0 0 20px #FF5CA4, 0 0 40px #FF5CA4;
     animation: glow 2s ease-in-out infinite;
     text-align: center;
@@ -63,12 +63,12 @@
 
   .text-name {
     position: absolute;
-    bottom: 2%;
+    bottom: 1%;
     left: 50%;
     transform: translateX(-50%);
     color: #FFD6E8;
     font-family: 'Comic Neue', cursive, sans-serif;
-    font-size: 26px;
+    font-size: 28px;
     text-shadow: 0 0 15px #FF5CA4, 0 0 30px #FF5CA4;
     animation: glow 3s ease-in-out infinite;
     text-align: center;
@@ -76,22 +76,15 @@
 
   .text-wish {
     position: absolute;
-    top: 110%;
+    bottom: -20%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translateX(-50%);
     color: #FFE1EF;
     font-family: 'Comic Neue', cursive, sans-serif;
     font-size: 22px;
-    text-align: center;
-    line-height: 1.6;
-    opacity: 0;
     animation: fadeIn 6s ease-in-out forwards 2s;
     text-shadow: 0 0 10px #FF5CA4, 0 0 20px #FF5CA4;
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translate(-50%, -40%); }
-    to { opacity: 1; transform: translate(-50%, -50%); }
+    text-align: center;
   }
 
   @keyframes glow {
