@@ -1,26 +1,40 @@
-html {
-  box-sizing: border-box;
+/* Reset box sizing */
+html { box-sizing: border-box; }
+*, *::before, *::after { box-sizing: inherit; }
+
+:root{
+  /* root font size - can be tuned */
+  font-size: 16px;
+  --container-padding: 16px;
 }
 
+/* Base */
 body {
   font-family: 'Poppins', sans-serif;
   margin: 0;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
 }
 
 .song {
-  visibility: hidden;
+  visibility: hidden; /* controlled by JS */
 }
 
+/* Container: use width:100% (không dùng 100vw) và min-height thay vì height:100vh để tránh vấn đề thanh địa chỉ trên mobile */
 .container {
-  height: 100vh;
+  min-height: 100vh;
   margin: 0 auto;
   overflow: hidden;
   position: relative;
   text-align: center;
-  visibility: hidden;
-  width: 100vw;
+  visibility: hidden; /* controlled by JS */
+  width: 100%;
+  padding: var(--container-padding);
+  left: 0;
+  right: 0;
 }
 
+/* ensure children positioned absolutely are constrained by left/right */
 .container > div {
   left: 0;
   position: absolute;
@@ -28,198 +42,172 @@ body {
   top: 20vh;
 }
 
-.one {
-  font-size: 4.5rem;
-}
+/* Responsive type using clamp */
+.one { font-size: clamp(1.8rem, 6vw, 4.5rem); }
+.two { font-size: clamp(1.2rem, 4.5vw, 3.2rem); }
+.three { font-size: clamp(1.1rem, 4vw, 3rem); }
 
-.two {
-  font-size: 3.2rem;
-}
-
-.three {
-  font-size: 3rem;
-}
-
+/* Text box: use relative width with max-width so it scales */
 .four .text-box {
   border: 3px solid #aaa;
   border-radius: 5px;
   margin: 0 auto;
   padding: 10px;
   position: relative;
-  width: 600px;
+  width: 90%;
+  max-width: 600px;
 }
 
-.text-box p {
-  margin: 0;
-  text-align: left;
-}
+/* Keep text readable and avoid forcing fixed heights */
+.text-box p { margin: 0; text-align: left; }
+.text-box span { visibility: hidden; }
 
-.text-box span {
-  visibility: hidden;
-}
-
+/* Button */
 .text-box .fake-btn {
   background-color: rgb(21, 161, 237);
   border-radius: 3px;
-  bottom: -50px;
+  bottom: -38px;
   color: #fff;
   padding: .5rem 1rem;
   position: absolute;
   right: 5px;
 }
 
+/* Ideas block: avoid absolute positioning for paragraphs unless necessary */
 .five p {
-  font-size: 2rem;
+  font-size: clamp(1rem, 3vw, 2rem);
   left: 0;
   position: absolute;
   right: 0;
 }
 
+/* small inline highlight */
 .idea-3 strong {
   border-radius: 3px;
   display: inline-block;
   padding: 3px 5px;
 }
 
-.five .idea-5 {
-  font-size: 4rem;
-}
+/* scale big lines with clamp */
+.five .idea-5 { font-size: clamp(1.6rem, 6vw, 4rem); }
+.idea-5 span, .idea-6 span, .wish-hbd span { display: inline-block; }
 
-.idea-5 span, .idea-6 span, .wish-hbd span {
-  display: inline-block;
-}
-
+/* avoid enormous fonts on small screens */
 .idea-6 span{
-  font-size: 4rem;
+  font-size: clamp(1.6rem, 6vw, 4rem);
 }
 
+/* Six: center profile and allow images to scale */
 .six {
   position: relative;
   top: 10vh;
   z-index: 1;
-  display: flex; 
-  flex-direction: column; 
-  align-items: center; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
 }
 
-.six img {
-  display: inline-block;
-  height: 250px;
+/* Images and svgs should be responsive */
+img, svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Profile picture: avoid fixed height; limit by viewport */
+.six img.profile-picture {
+  width: auto;
   max-width: 80%;
+  max-height: 40vh;
+  border-radius: 6px;
 }
 
+/* Hat: don't force height:100% (caused distortions). Use max-width relative to viewport */
 .six .hat {
   width: 100px;
-  height: 100%;
+  max-width: 20vw;
+  height: auto;
 }
 
+/* Wish texts */
 .wishText{
-  font-size: 4rem;
+  font-size: clamp(1rem, 3.5vw, 4rem);
   border-radius: 3px;
   font-weight: bold;
+  margin: 0;
+  line-height: 1.2;
 }
 
 .baloons img {
-  display: inline-block;
   position: absolute;
+  max-width: 12vw;        /* cho phép ảnh lớn hơn — chỉnh giá trị nếu cần */
+  width: auto;
+  height: auto;
+  transform-origin: center center;
+  will-change: transform, opacity;
 }
 
-.baloons img:nth-child(even) {
-  left: -10%;
+/* Trên màn hình nhỏ hơn, tăng kích thước tương đối */
+@media screen and (max-width: 500px) {
+  .baloons img {
+    max-width: 18vw;
+  }
 }
 
-.baloons img:nth-child(odd) {
-  right: -10%;
-}
+/* give safer left/right offsets; avoid large negative % which cause horizontal overflow */
+.baloons img:nth-child(even) { left: -6%; }
+.baloons img:nth-child(odd)  { right: -6%; }
 
-.baloons img:nth-child(3n + 0) {
-  left: 30%;
-}
+/* simplify complex nth-child rule that caused overlap/overflow */
+.baloons img:nth-child(3n) { left: 30%; }
 
+/* Sections that previously used fixed 100vh/100vw: prefer 100% width and position fixed only if necessary */
 .seven, .eight {
-  height: 100vh;
+  height: 100%;
   position: fixed;
   top: 0;
-  width: 100vw;
+  left: 0;
+  right: 0;
+  width: 100%;
+  pointer-events: none; /* if decorative */
 }
 
+/* Decorative svgs */
 .eight svg {
-  left: 0;
   position: absolute;
   top: 0;
-  visibility: hidden;
   width: 25px;
+  visibility: hidden; /* controlled by JS */
   z-index: -1;
 }
 
-.eight svg:nth-child(1) {
-  fill: #bd6ecf;
-  left: 5vw;
-  top: 7vh;
-}
+/* colored positions (kept but responsive) */
+.eight svg:nth-child(1) { fill: #bd6ecf; left: 5vw; top: 7vh; }
+.eight svg:nth-child(2) { fill: #7dd175; left: 35vw; top: 23vh; }
+.eight svg:nth-child(3) { fill: #349d8b; left: 23vw; top: 33vh; }
+.eight svg:nth-child(4) { fill: #347a9d; left: 57vw; top: 43vh; }
+.eight svg:nth-child(5) { fill: #c66053; left: 7vw; top: 68vh; }
+.eight svg:nth-child(6) { fill: #bfaa40; left: 77vw; top: 42vh; }
+.eight svg:nth-child(7) { fill: #e3bae8; left: 83vw; top: 68vh; }
+.eight svg:nth-child(8) { fill: #8762cb; left: 37vw; top: 86vh; }
+.eight svg:nth-child(9) { fill: #9a90da; left: 87vw; top: 94vh; }
 
-.eight svg:nth-child(2) {
-  fill: #7dd175;
-  left: 35vw;
-  top: 23vh;
-}
-
-.eight svg:nth-child(3) {
-  fill: #349d8b;
-  left: 23vw;
-  top: 33vh;
-}
-
-.eight svg:nth-child(4) {
-  fill: #347a9d;
-  left: 57vw;
-  top: 43vh;
-}
-
-.eight svg:nth-child(5) {
-  fill: #c66053;
-  left: 7vw;
-  top: 68vh;
-}
-
-.eight svg:nth-child(6) {
-  fill: #bfaa40;
-  left: 77vw;
-  top: 42vh;
-}
-
-.eight svg:nth-child(7) {
-  fill: #e3bae8;
-  left: 83vw;
-  top: 68vh;
-}
-
-.eight svg:nth-child(8) {
-  fill: #8762cb;
-  left: 37vw;
-  top: 86vh;
-}
-
-.eight svg:nth-child(9) {
-  fill: #9a90da;
-  left: 87vw;
-  top: 94vh;
-}
-
+/* Wish heading */
 .wish-hbd {
-  font-size: 3em;
+  font-size: clamp(1.4rem, 4.5vw, 3em);
   margin: 0;
   text-transform: uppercase;
 }
 
 .wish h5 {
-  font-size: 2rem;
+  font-size: clamp(0.9rem, 3vw, 2rem);
   font-weight: lighter;
   margin: 10px 0 0;
 }
 
 .nine p {
-  font-size: 2rem;
+  font-size: clamp(0.9rem, 3vw, 2rem);
   font-weight: lighter;
 }
 
@@ -228,69 +216,59 @@ body {
   z-index: 3;
 }
 
-/* Media Queries */
-@media screen and (max-height: 1000px) {
-  .six .hat {
-    left: 40%;
-  }
-}
+/* ---------- Media Queries (fewer, more focused) ---------- */
 
-@media screen and (max-height: 800px) {
-  .six .hat {
-    left: 37%;
-  }
-}
-
-@media screen and (max-height: 700px) {
-  .six .hat {
-    left: 32%;
-  }
-}
-
-@media screen and (max-height: 850px) and (max-width: 450px) {
-  .six .hat {
-    left: 32%;
-  }
-}
-
+/* Narrow screens (phones) */
 @media screen and (max-width: 500px) {
-  .container {
-    width: 90%;
-  }
+  .container { width: 100%; padding: 12px; }
 
-  .four .text-box {
-    width: 90%;
-  }
+  .four .text-box { width: 100%; max-width: 480px; }
 
-  .text-box .fake-btn {
-    bottom: -38px;
-    right: 5px;
-  }
+  .text-box .fake-btn { bottom: -38px; right: 8px; }
 
-  .idea-5 span {
-    display: block;
-  }
+  /* break long inline into blocks on small screens */
+  .idea-5 span { display: block; }
 
-  .idea-6 span {
-    font-size: 10rem;
-  }
+  /* keep idea-6 reasonable on phones */
+  .idea-6 span { font-size: clamp(1.6rem, 8vw, 4rem); }
 
-  .six .hat {
-    /* top: -20px; */
-    width: 50px;
-  }
+  .six .hat { width: 50px; max-width: 20vw; }
 
-  .wish-hbd {
-    font-size: 2.2em;
-  }
+  .wish-hbd { font-size: 2.2rem; }
 
-  .wish h5 {
-    font-size: 1.4rem;
-  }
+  .wish h5 { font-size: 1.1rem; }
 
-  .nine p {
-    font-size: 1.5rem;
-    font-weight: lighter;
-  }
+  .nine p { font-size: 1rem; font-weight: lighter; }
+
+  .baloons img { max-width: 14vw; }
 }
 
+/* Taller/shorter viewport tweaks */
+@media screen and (max-height: 700px) {
+  .container > div { top: 12vh; }
+  .six { top: 6vh; }
+}
+
+/* Tablet */
+@media screen and (min-width: 501px) and (max-width: 900px) {
+  .one { font-size: clamp(2rem, 5.5vw, 3.5rem); }
+  .two { font-size: clamp(1.2rem, 4vw, 2.6rem); }
+}
+
+/* Avoid horizontal overflow globally */
+html, body { overflow-x: hidden; }
+.baloons {
+  position: fixed; /* để bóng bay khắp màn hình */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* để không chặn click các phần tử khác */
+  z-index: 9999; /* nổi trên tất cả */
+}
+
+.baloons img {
+  position: absolute;
+  width: 80px; /* hoặc điều chỉnh tùy ý */
+  user-select: none;
+}
