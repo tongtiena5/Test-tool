@@ -180,7 +180,7 @@ function randomBalloons() {
         function floatUp() {
             const startX = Math.random() * window.innerWidth - 100; // vị trí ngang random
             const endX = startX + (Math.random() - 0.5) * 200; // lệch trái/phải nhẹ
-            const scale = 0.4 + Math.random() * 0.4;
+            const scale = Math.random() * (1 - 0.4) + 0.4;    // scale từ 0.4 đến 1
             const duration = 5 + Math.random() * 5; // bay 5–10s
             const delay = Math.random() * 3; // trễ ngẫu nhiên
             const rotate = (Math.random() - 0.5) * 30; // nghiêng nhẹ
